@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+       <link href="../css/styles.css" rel="stylesheet" />
+       <link href="../css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     </head>
 		<body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">

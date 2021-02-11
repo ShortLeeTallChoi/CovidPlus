@@ -4,14 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Covid+</title>
 </head>
 <body>
+
 	<section class="content">
 		<tiles:insertAttribute name="header" />
+        <tiles:insertAttribute name="sidebar" />	
 		<tiles:insertAttribute name="body" /><!-- body -->
 		<tiles:insertAttribute name="footer" />
+		<tiles:insertAttribute name="common" />
 	</section>
+	
 </body>
 </html>

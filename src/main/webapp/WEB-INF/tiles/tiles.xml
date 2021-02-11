@@ -2,16 +2,19 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
 <tiles-definitions>
 
    <!-- main -->
    <definition name="main-layout" template="/WEB-INF/views/layout/base-main.jsp">
        <put-attribute name="header" value="/WEB-INF/views/layout/common/header.jsp" />
+       <put-attribute name="sidebar" value="/WEB-INF/views/layout/common/sidebar.jsp" />
        <put-attribute name="body" value="" />
        <put-attribute name="footer" value="/WEB-INF/views/layout/common/footer.jsp" />
+       <put-attribute name="common" value="/WEB-INF/views/layout/common/common.jsp" />
    </definition>
    <definition name="index" extends="main-layout">
        <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
    </definition>
-
+   
 </tiles-definitions>

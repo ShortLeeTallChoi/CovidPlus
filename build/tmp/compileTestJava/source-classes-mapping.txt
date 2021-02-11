@@ -1,2 +1,0 @@
-com/covidplus/CovidplusApplicationTests.java
- com.covidplus.CovidplusApplicationTests

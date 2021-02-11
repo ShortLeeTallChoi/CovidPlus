@@ -23,7 +23,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
-	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.7.0'
 }
 
 test {

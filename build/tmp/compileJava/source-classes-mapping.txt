@@ -1,6 +1,0 @@
-com/covidplus/controller/IndexController.java
- com.covidplus.controller.IndexController
-com/covidplus/configration/ResourceConfig.java
- com.covidplus.configration.ResourceConfig
-com/covidplus/CovidplusApplication.java
- com.covidplus.CovidplusApplication

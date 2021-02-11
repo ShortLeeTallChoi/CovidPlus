@@ -30,6 +30,7 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
 	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.8'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 }
 
 test {

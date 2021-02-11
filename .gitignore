@@ -19,3 +19,4 @@ gradlew
 *.bin
 *.lock
 *.prefs
+*.class

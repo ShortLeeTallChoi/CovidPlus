@@ -26,6 +26,7 @@ public class ResourceConfig implements WebMvcConfigurer{
 		// TODO Auto-generated method stub
 		WebMvcConfigurer.super.configureViewResolvers(registry);
 		registry.jsp("/WEB-INF/views/", ".jsp");
+		registry.order(2);
 	}
 
 }

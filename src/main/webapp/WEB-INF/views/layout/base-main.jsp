@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
 <body>
 	<c:set var="rootPath" value="${pageContext.request.contextPath}"/>
 	<script type="text/javascript">
-		var rootPath = ${pageContext.request.contextPath}
+		var rootPath = '${pageContext.request.contextPath}';
 	</script>
 	
 	<section class="content">

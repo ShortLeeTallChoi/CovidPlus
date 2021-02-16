@@ -1,10 +1,16 @@
 package com.covidplus.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.covidplus.service.LoginService;
@@ -18,5 +24,10 @@ public class LoginController {
 	@GetMapping
 	public ModelAndView login() {
 		return loginSvc.login();
+	}
+	
+	@RequestMapping(value="/join",method = RequestMethod.POST)
+	public ModelAndView join(@RequestParam Map<String,Object> paramMap) {
+		return loginSvc.join(paramMap);
 	}
 }

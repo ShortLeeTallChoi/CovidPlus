@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.covidplus.model.UserVO;
@@ -20,10 +21,13 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 	@Autowired
 	public LoginService loginSvc;
 	
+	@Autowired
+	public PasswordEncoder passwordEncoder;
+	
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String member_id = authentication.getName();
-		String member_pass = (String) authentication.getCredentials();
+		String member_pass = passwordEncoder.encode((String) authentication.getCredentials());
 		
 		UserVO userVO = loginSvc.authenticate(member_id, member_pass);
 		if(userVO == null)

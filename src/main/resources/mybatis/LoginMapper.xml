@@ -19,4 +19,28 @@
 			<if test="member_pass != null and member_pass != ''">AND MEMBER_PASS = #{member_pass}</if>
 		</trim>
 	</select>
+	
+	<insert id="memberJoin" parameterType="UserVO">
+		REPLACE INTO covidplus.member_info
+		(MEMBER_ID
+		, AUTH_ID
+		, MEMBER_PASS
+		, MEMBER_NAME
+		, MEMBER_ADDR
+		, MEMBER_PHONE
+		, JOIN_DATE
+		, LAST_LOGIN
+		, FAIL_COUNT
+		, MEMBER_EMAIL)
+		VALUES(#{member_id}
+		, 'MEMBER'
+		, #{member_pass}
+		, #{member_name}
+		, #{member_addr}
+		, #{member_phone}
+		, now()
+		, now()
+		, 5
+		, #{member_email})
+	</insert>
 </mapper>

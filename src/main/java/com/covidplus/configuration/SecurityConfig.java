@@ -13,13 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.covidplus.service.LoginService;
+import com.covidplus.service.impl.LoginServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private LoginServiceImpl loginService;
+	
 	@Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 	
@@ -34,25 +37,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 페이지 권한 설정
-             .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/myinfo").hasRole("MEMBER")
-                .antMatchers("/**").permitAll()
+             .antMatchers("/admin/**").hasRole("ADMIN")			//admin/ 이 포함된 경로는 ADMIN 권한 유저만 접근 가능
+                .antMatchers("/user/myinfo").hasRole("MEMBER")	//user/myinfo 가 포함된 경로는 MEMBER 권한 유저만 접근 가능
+                .anyRequest().permitAll()					//그외 나머지 페이지는 권한과 상관없이 접근 가능
             .and() // 로그인 설정
             .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login/loginProcess")
-                .defaultSuccessUrl("/index")
-                .failureForwardUrl("/login")
-                .usernameParameter("member_id")
-                .passwordParameter("member_pass")
+                .loginPage("/login")							//로그인 페이지 경로
+                .loginProcessingUrl("/login/loginProcess")		//로그인 진행 경로
+                .defaultSuccessUrl("/index")					//로그인 성공시 이동 페이지
+                .failureForwardUrl("/login")					//로그인 실패시 이동 페이지
+                .usernameParameter("member_id")					//유저 아이디로 넘겨줄 파라미터
+                .passwordParameter("member_pass")				//유저 비번으로 넘겨줄 파라미터
                 .permitAll()
             .and() // 로그아웃 설정
             .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/user/logout/result")
-                .invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))	//로그아웃 진행 경로
+                .logoutSuccessUrl("/user/logout/result")							//로그아웃 성공시 이동 페이지
+                .invalidateHttpSession(true)										//로그아웃된 세션 초기화
             .and()
                 // 403 예외처리 핸들링
             .exceptionHandling().accessDeniedPage("/user/denied");
+    }
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    	super.configure(auth);
+    	auth.userDetailsService(loginService).passwordEncoder(passwordEncoder());
     }
 }

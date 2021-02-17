@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.covidplus.dao.MenuDao">
+	<select id="menuList" parameterType="UserVO" resultType="UserVO">
+		SELECT 
+			MENU_ID
+			,MENU_NAME
+			,PARENT_MENU_ID
+			,MENU_DEPTH
+			,MENU_ORDER
+			,MENU_PATH
+			,GROUP_CONCAT(AUTH_ID)
+		FROM MENU mn
+		LEFT JOIN AUTH_INFO ai
+		ON mn.MENU_ID = ai.MENU_ID		
+	</select>
+</mapper>

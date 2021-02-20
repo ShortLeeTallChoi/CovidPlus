@@ -19,6 +19,10 @@ public class ResourceConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/scripts/**").addResourceLocations("/WEB-INF/scripts/");
 		registry.addResourceHandler("/pug/**").addResourceLocations("/WEB-INF/pug/");
 		registry.addResourceHandler("/scss/**").addResourceLocations("/WEB-INF/scss/");
+		registry.addResourceHandler("/less/**").addResourceLocations("/WEB-INF/less/");
+		registry.addResourceHandler("/sprites/**").addResourceLocations("/WEB-INF/sprites/");
+		registry.addResourceHandler("/svgs/**").addResourceLocations("/WEB-INF/svgs/");
+		registry.addResourceHandler("/webfonts/**").addResourceLocations("/WEB-INF/webfonts/");
 	}
 	
 	@Override

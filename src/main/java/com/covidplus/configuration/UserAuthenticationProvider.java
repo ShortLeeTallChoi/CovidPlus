@@ -27,11 +27,15 @@ public class UserAuthenticationProvider implements AuthenticationProvider{
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		String member_id = authentication.getName();
-		String member_pass = passwordEncoder.encode((String) authentication.getCredentials());
+		String member_pass = (String) authentication.getCredentials();
 		
 		UserVO userVO = loginSvc.authenticate(member_id, member_pass);
 		if(userVO == null)
 			throw new BadCredentialsException("Login Fail");
+		
+		if(!passwordEncoder.matches(member_pass, userVO.getMember_pass())) {
+			throw new BadCredentialsException("Login Fail");
+		}
 		userVO.setMember_pass(null);
 		
 		ArrayList<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();

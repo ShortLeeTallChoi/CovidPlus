@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService,UserDetailsService {
 
 	@Override
 	public UserVO authenticate(String id, String pass) {
-		return loginDao.memberInfoOne(new UserVO(id, pass));
+		return loginDao.memberInfoOne(new UserVO(id));
 	}
 
 	@Override
@@ -43,9 +43,6 @@ public class LoginServiceImpl implements LoginService,UserDetailsService {
 
 	@Override
 	public ModelAndView join(Map<String,Object> paramMap) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("register");
-		
 		PasswordEncoder pEncoder = SecurityConfig.passwordEncoder();
 		
 		Function<Map,UserVO> f1 = map ->{

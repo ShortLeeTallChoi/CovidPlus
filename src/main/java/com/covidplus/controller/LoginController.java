@@ -21,9 +21,17 @@ public class LoginController {
 	@Autowired
 	public LoginService loginSvc;
 	
-	@GetMapping
+
+	@RequestMapping(method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView login() {
 		return loginSvc.login();
+	}
+	
+	@RequestMapping(value="/join",method = RequestMethod.GET)
+	public ModelAndView register(@RequestParam Map<String,Object> paramMap) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("register");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/join",method = RequestMethod.POST)

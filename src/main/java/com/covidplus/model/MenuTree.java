@@ -145,11 +145,33 @@ public class MenuTree {
 		}
 	}
 	
+	static String html = "";
+	public static void toIndexMenuHtml() {
+		
+		MenuTree travelNode = all_menu_list.get("root");
+		htmlWrite(travelNode);
+	}
 	
+	public static void htmlWrite(MenuTree travelNode) {
+		
+		if(travelNode.menu_depth == 2) {
+			inputDepth2Name(travelNode.menu_name);
+			depth2HtmlCollect(travelNode.child_menu);
+		}
+		htmlWrite(travelNode.child_menu);
+		htmlWrite(travelNode.sibling_menu);
+	}
 	
-	
-	
-	
+	public static String depth2HtmlCollect(MenuTree travelNode) {
+		String returnHtml = "";
+		if(travelNode != null) {
+			for (MenuTree tempNode = travelNode; tempNode.sibling_menu != null; tempNode = tempNode.sibling_menu) {
+				returnHtml = returnHtml+inputDepth2NavPathName(tempNode.menu_path, tempNode.menu_name);
+			}
+			returnHtml = inputDepth2NavHtml(returnHtml);
+		}
+		return returnHtml;
+	}
 	
 	// -- 이하 개발중
 	public void addMenu(List<MenuVO> menuList) {
@@ -194,5 +216,50 @@ public class MenuTree {
 		menuTree.addMenu("2번 자식메뉴1 자식메뉴1", "child2-1-1", "child2-1", 0, "");
 		menuTree.addMenu("2번 자식메뉴1 자식메뉴2", "child2-1-2", "child2-1", 0, "");
 		MenuTree.toJSListHtml();
+	}
+	
+	public String inputDepth1Name(String name) {
+		String depth_1_html = "<a class=\"nav-link collapsed\" href=\"#\" data-toggle=\"collapse\" data-target=\"#collapsePages\" aria-expanded=\"false\" aria-controls=\"collapsePages\">\r\n" + 
+				"                                <div class=\"sb-nav-link-icon\"><i class=\"fas fa-book-open\"></i></div>\r\n" + 
+				"                                #{name}#\r\n" + 
+				"                                <div class=\"sb-sidenav-collapse-arrow\"><i class=\"fas fa-angle-down\"></i></div>\r\n" + 
+				"                            </a>";
+		depth_1_html.replace("#{name}#", name);
+		return depth_1_html;
+	}
+
+	public String inputDepth2Html(String html) {
+		String depth_2_outline_html = "<div class=\"collapse\" id=\"collapsePages\" aria-labelledby=\"headingTwo\" data-parent=\"#sidenavAccordion\">\r\n" + 
+				"                                <nav class=\"sb-sidenav-menu-nested nav accordion\" id=\"sidenavAccordionPages\">"
+				+ 								"#{html}#"
+				+ 								"</nav>\r\n" + 
+				"                      </div>";
+		depth_2_outline_html.replace("#{html}#", html);
+		return depth_2_outline_html;
+	}
+
+	public static String inputDepth2Name(String name) {
+		String depth_2_inner_name_html = "<a class=\"nav-link collapsed\" href=\"#\" data-toggle=\"collapse\" data-target=\"#pagesCollapseAuth\" aria-expanded=\"false\" aria-controls=\"pagesCollapseAuth\">\r\n" + 
+				"                                        #{name}#\r\n" + 
+				"                                        <div class=\"sb-sidenav-collapse-arrow\"><i class=\"fas fa-angle-down\"></i></div>\r\n" + 
+				"                                    </a>";
+		depth_2_inner_name_html.replace("#{name}#", name);
+		return depth_2_inner_name_html;
+	}
+	
+	public static String inputDepth2NavHtml(String html) {
+		String depth_2_inner_nav_outline_html = "<div class=\"collapse\" id=\"pagesCollapseAuth\" aria-labelledby=\"headingOne\" data-parent=\"#sidenavAccordionPages\">\r\n" + 
+				"                                        <nav class=\"sb-sidenav-menu-nested nav\">\r\n" + 
+				"                                            #{html}#\r\n" + 
+				"                                        </nav>\r\n" + 
+				"                                    </div>";
+		depth_2_inner_nav_outline_html.replace("#{html}#", html);
+		return depth_2_inner_nav_outline_html;
+	}
+
+	public static String inputDepth2NavPathName(String path, String name) {
+		String depth_2_inner_nav_menu_html = "<a class=\"nav-link\" href=\"#{path}#\">#{name}#</a>\r\n";
+		depth_2_inner_nav_menu_html.replace("#{path}#", path).replace("#{name}#", name);
+		return depth_2_inner_nav_menu_html;
 	}
 }

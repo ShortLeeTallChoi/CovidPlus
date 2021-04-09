@@ -26,9 +26,8 @@ public class UserVO {
 		super();
 	}
 	
-	public UserVO(String member_id, String member_pass) {
+	public UserVO(String member_id) {
 		super();
 		this.member_id = member_id;
-		this.member_pass = member_pass;
 	}
 }

@@ -14,12 +14,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.covidplus.service.LoginService;
 import com.covidplus.service.impl.LoginServiceImpl;
+import com.covidplus.util.loginFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private LoginServiceImpl loginService;
+	
+	@Autowired
+	loginFailureHandler failureHandler;
 	
 	@Bean
     public static PasswordEncoder passwordEncoder() {
@@ -38,14 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 페이지 권한 설정
              .antMatchers("/admin/**").hasRole("ADMIN")			//admin/ 이 포함된 경로는 ADMIN 권한 유저만 접근 가능
-                .antMatchers("/user/myinfo").hasRole("MEMBER")	//user/myinfo 가 포함된 경로는 MEMBER 권한 유저만 접근 가능
+                .antMatchers("/member/**").hasRole("MEMBER")	//user/myinfo 가 포함된 경로는 MEMBER 권한 유저만 접근 가능
                 .anyRequest().permitAll()					//그외 나머지 페이지는 권한과 상관없이 접근 가능
             .and() // 로그인 설정
             .formLogin()
                 .loginPage("/login")							//로그인 페이지 경로
                 .loginProcessingUrl("/login/loginProcess")		//로그인 진행 경로
                 .defaultSuccessUrl("/index")					//로그인 성공시 이동 페이지
-                .failureForwardUrl("/login")					//로그인 실패시 이동 페이지
+            //  .failureForwardUrl("/login")					//로그인 실패시 이동 페이지
+                .failureHandler(failureHandler)		//로그인 실패시 로직
                 .usernameParameter("member_id")					//유저 아이디로 넘겨줄 파라미터
                 .passwordParameter("member_pass")				//유저 비번으로 넘겨줄 파라미터
                 .permitAll()

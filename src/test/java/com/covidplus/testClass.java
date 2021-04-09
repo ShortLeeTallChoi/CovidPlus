@@ -17,6 +17,7 @@ public class testClass {
 		menuTree.addMenu("3번 자식메뉴1", "child3-1", "perent03", 0, "");
 		menuTree.addMenu("2번 자식메뉴1 자식메뉴1", "child2-1-1", "child2-1", 0, "");
 		menuTree.addMenu("2번 자식메뉴1 자식메뉴2", "child2-1-2", "child2-1", 0, "");
+
 		MenuTree.toJSListHtml();
 	}
 }

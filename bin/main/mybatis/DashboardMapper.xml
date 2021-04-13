@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.covidplus.dao.DashboardDao">
+	<!-- 지역별 확진자 통계 -->
+	<!-- 입력 : 통계 확인할 날짜 ex) create_dt - '20210413' 공백시 모은 수집 데이터중 마지막 데이터-->
+	<!-- 출력 : gubun - 지역, inc_dec - 확진자 증가치 , def_cnt - 누적확진자 -->
+	<select id="selectSidoCaseChartData" parameterType="Map" resultType="Map">			
+		select 
+			sdc.create_dt,
+			sdc.gubun,
+			sdc.inc_dec,
+			sdc.def_cnt,
+			vsdcd.inc_dec as inc_dec_distance,
+			vsdcd.def_cnt as def_cnt_distance
+		from si_do_case sdc 
+		join v_si_do_case_distance vsdcd 
+		on sdc.CREATE_DT = vsdcd.create_dt and sdc.gubun = vsdcd.gubun 
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<choose>
+				<when test="create_dt != null and create_dt != ''">
+					and sdc.create_dt = #{create_dt}
+				</when>
+				<otherwise>
+					and sdc.create_dt = (select max(create_dt) from si_do_case)
+				</otherwise>
+			</choose>
+		</trim>
+		order by sdc.CREATE_DT desc, sort, sdc.inc_dec desc;
+	</select>
+	
+	<!-- 연령별 확진자 통계 -->
+	<!-- 입력 : 통계 확인할 날짜 ex) create_dt - '20210413' 공백시 모은 수집 데이터중 마지막 데이터-->
+	<!-- 출력 : gubun - 연령대, inc_dec - 확진자 증가치 -->
+	<select id="selectGenAgeCaseData" parameterType="Map" resultType="Map">
+		SELECT 
+			gubun,
+			inc_dec
+		FROM v_gen_age_case
+		where
+			gubun not in ('남성','여성')
+		<choose>
+			<when test="create_dt != null and create_dt != ''">
+				and create_dt = #{create_dt}
+			</when>
+			<otherwise>
+				and create_dt = (select max(create_dt) from si_do_case)
+			</otherwise>
+		</choose>
+		order by inc_dec desc
+	</select>
+	<select id="selectNatCaseData" parameterType="Map" resultType="Map">
+	</select>
+	
+	<!-- 종합 확진자 통계 -->
+	<!-- 입력 : 통계 확인할 날짜 ex) create_dt - '20210413' 공백시 모은 수집 데이터중 마지막 데이터-->
+	<select id="selectTotalCaseData" parameterType="Map" resultType="TotalCase">
+		SELECT
+			CREATE_DT,
+			DECIDE_CNT,
+			CLEAR_CNT,
+			EXAM_CNT,
+			DEATH_CNT,
+			CARE_CNT,
+			RESULT_NEG_CNT,
+			ACC_EXAM_CNT,
+			ACC_EXAM_COMP_CNT,
+			ACC_DEF_RATE
+		FROM
+			total_case
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<choose>
+				<when test="create_dt != null and create_dt != ''">
+					and create_dt = #{create_dt}
+				</when>
+				<otherwise>
+					and create_dt = (select max(create_dt) from total_case)
+				</otherwise>
+			</choose>
+		</trim>
+		order by CREATE_DT desc
+	</select>
+	
+	<!-- 종합 확진자 통계 -->
+	<!-- 입력 : 통계 확인할 날짜 ex) create_dt - '20210413' 공백시 모은 수집 데이터중 마지막 데이터-->
+	<select id="selectTotalCaseData_distance" parameterType="Map" resultType="TotalCase">
+		SELECT
+			CREATE_DT,
+			DECIDE_CNT,
+			CLEAR_CNT,
+			EXAM_CNT,
+			DEATH_CNT,
+			CARE_CNT,
+			RESULT_NEG_CNT,
+			ACC_EXAM_CNT,
+			ACC_EXAM_COMP_CNT,
+			ACC_DEF_RATE
+		FROM
+			v_total_case_distance
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<choose>
+				<when test="create_dt != null and create_dt != ''">
+					and create_dt = #{create_dt}
+				</when>
+				<otherwise>
+					and create_dt = (select max(create_dt) from v_total_case_distance)
+				</otherwise>
+			</choose>
+		</trim>
+		order by CREATE_DT desc
+	</select>
+</mapper>

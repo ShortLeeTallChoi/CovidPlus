@@ -17,9 +17,9 @@
 	<section class="content">
 		<tiles:insertAttribute name="header" />
         <tiles:insertAttribute name="sidebar" />	
+		<tiles:insertAttribute name="common" />
 		<tiles:insertAttribute name="body" /><!-- body -->
 		<tiles:insertAttribute name="footer" />
-		<tiles:insertAttribute name="common" />
 	</section>
 	
 </body>

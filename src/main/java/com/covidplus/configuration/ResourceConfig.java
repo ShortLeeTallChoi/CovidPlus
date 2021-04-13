@@ -1,10 +1,13 @@
 package com.covidplus.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 @Configuration
 @EnableWebMvc
@@ -32,5 +35,17 @@ public class ResourceConfig implements WebMvcConfigurer{
 		registry.jsp("/WEB-INF/views/", ".jsp");
 		registry.order(2);
 	}
-
+	
+	@Bean
+	public BeanNameViewResolver vr() {
+		BeanNameViewResolver bnvResolver= new BeanNameViewResolver();
+		bnvResolver.setOrder(0);
+		return bnvResolver;
+	}
+	
+	@Bean(name = "jsonView")
+	public MappingJackson2JsonView jsonView() {
+		return new MappingJackson2JsonView();
+	}
+	
 }

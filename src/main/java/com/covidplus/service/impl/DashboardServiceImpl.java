@@ -36,8 +36,11 @@ public class DashboardServiceImpl implements DashboardService,UserDetailsService
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("jsonView");
 		
-		modelAndView.addObject("sidoCase", dashboardDao.selectSidoCaseChartData(paramMap));
-		modelAndView.addObject("genAgeCase", dashboardDao.selectGenAgeCaseData(paramMap));
+		if(paramMap.size() == 1) {
+			modelAndView.addObject("sidoCase", dashboardDao.selectSidoCaseChartData(paramMap));
+			modelAndView.addObject("genAgeCase", dashboardDao.selectGenAgeCaseData(paramMap));
+		}
+		modelAndView.addObject("totalCaseWeek", dashboardDao.selectTotalCaseWeekData(paramMap));
 		//modelAndView.addObject("natCase", dashboardDao.selectNatCaseData(paramMap));
 		//modelAndView.addObject("totalCase", dashboardDao.selectTotalCaseData(paramMap));
 		

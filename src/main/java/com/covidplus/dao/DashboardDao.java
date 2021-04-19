@@ -17,5 +17,6 @@ public interface DashboardDao {
 	public List<Map<String, Object>> selectSidoCaseChartData(Map<String, Object> paramMap);
 	
 	public TotalCase selectTotalCaseData(Map<String, Object> paramMap);
-	public TotalCase selectTotalCaseData_distance(Map<String, Object> paramMap);	
+	public TotalCase selectTotalCaseData_distance(Map<String, Object> paramMap);
+	public List<Map<String, Object>> selectTotalCaseWeekData(Map<String, Object> paramMap);	
 }

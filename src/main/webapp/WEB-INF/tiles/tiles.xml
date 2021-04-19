@@ -21,5 +21,8 @@
    <definition name="dashboard" extends="main-layout">
        <put-attribute name="body" value="/WEB-INF/views/dashboard/dashboard.jsp" />
    </definition>
-   
+      
+   <definition name="apiOption" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/views/option/apiOption.jsp" />
+   </definition>
 </tiles-definitions>

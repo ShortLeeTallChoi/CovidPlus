@@ -111,10 +111,13 @@ function distance_value(value){
 function createAgeChart(data) {
 	var dataArr = new Array();
 	for ( var value in data.genAgeCase) {
-		dataArr.push({
-			"category" : data.genAgeCase[value].gubun,
-			"value" : data.genAgeCase[value].inc_dec
-		});
+		var gubun = data.genAgeCase[value].gubun;
+		if(gubun != '남성' && gubun != '여성'){
+			dataArr.push({
+				"category" : data.genAgeCase[value].gubun,
+				"value" : data.genAgeCase[value].inc_dec
+			});
+		}
 	}
 	let chart = am4core.createFromConfig({
 		"type" : "PieChart",
@@ -176,7 +179,81 @@ function createAgeChart(data) {
 			}
 		},
 		"radius" : "90%"
-	}, document.getElementById('amPieChart'));
+	}, document.getElementById('agePieChart'));
+}
+
+function createGenderChart(data) {
+	var dataArr = new Array();
+	for ( var value in data.genAgeCase) {
+		var gubun = data.genAgeCase[value].gubun;
+		if(gubun == '남성' || gubun == '여성'){
+			dataArr.push({
+				"category" : data.genAgeCase[value].gubun,
+				"value" : data.genAgeCase[value].inc_dec
+			});
+		}
+	}
+	let chart = am4core.createFromConfig({
+		"type" : "PieChart",
+		"data" : dataArr,
+		"series" : [ {
+			"type" : "PieSeries",
+			"alignLabels" : false,
+			"dataFields" : {
+				"value" : "value",
+				"category" : "category"
+			},
+			"ticks" : {
+				"disabled" : true
+			},
+			"labels" : {
+				"text" : "{category}\n{value.percent.formatNumber('#.0')}%",
+				"radius" : "-40%",
+				"adapter" : {
+					"radius" : function(radius, target) {
+						if (target.dataItem
+								&& (target.dataItem.values.value.percent < 10)) {
+							return 0;
+						}
+						return radius;
+					}
+				},
+				"fill" : "white",
+				"fontSize" : "12px"
+			},
+			"legendSettings" : {
+				"labelText" : "{category} : {value}명"
+			}
+		} ],
+		"legend" : {
+			"type" : "Legend",
+			"id" : "value",
+			"setStateOnChildren" : false,
+			"showOnInit" : false,
+			"markers" : {
+				"width" : 12,
+				"height" : 12,
+				"children" : [ {
+					"cornerRadiusTopLeft" : 12,
+					"cornerRadiusTopRight" : 12,
+					"cornerRadiusBottomRight" : 12,
+					"cornerRadiusBottomLeft" : 12,
+					"strokeWidth" : 2,
+					"strokeOpacity" : 1,
+					"stroke" : "#ccc"
+				} ]
+			},
+			"position" : "right",
+			"maxWidth" : 160,
+			"fontSize" : "12px",
+			"useDefaultMarker" : true,
+			"itemContainers" : {
+				"paddingTop" : 3,
+				"paddingBottom" : 3
+			}
+		},
+		"radius" : "90%"
+	}, document.getElementById('genderPieChart'));
 }
 
 function addtr(htmlSource, tdSource){
@@ -191,4 +268,62 @@ function addtd(htmlSource, Source){
 	htmlSource = htmlSource+Source;
 	htmlSource = htmlSource+"</td>\n";
 	return htmlSource;
+}
+
+
+function createTotalLineChart(data){
+	am4core.useTheme(am4themes_animated);
+	let chart = am4core.create("totalLineChart", am4charts.XYChart);
+	var dataArr = new Array();
+	for ( var value in data.totalCaseWeek) {
+		dataArr.push({
+			"date" : data.totalCaseWeek[value].create_dt,
+			  "income": data.totalCaseWeek[value].inc_dec,
+			  "expenses": data.totalCaseWeek[value].inc_dec
+		});
+	}
+	
+	
+
+	/* Create axes */
+	let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+	categoryAxis.dataFields.category = "date";
+	categoryAxis.renderer.minGridDistance = 30;
+	categoryAxis.fontSize = "12px";
+	
+	/* Create value axis */
+	let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+	/* Create series */
+	let columnSeries = chart.series.push(new am4charts.ColumnSeries());
+	columnSeries.name = "Income";
+	columnSeries.dataFields.valueY = "income";
+	columnSeries.dataFields.categoryX = "date";
+
+	columnSeries.columns.template.tooltipText = "[#fff font-size: 15px]{categoryX}\n{valueY}명"
+	columnSeries.columns.template.propertyFields.fillOpacity = "fillOpacity";
+	columnSeries.columns.template.propertyFields.stroke = "stroke";
+	columnSeries.columns.template.propertyFields.strokeWidth = "strokeWidth";
+	columnSeries.columns.template.propertyFields.strokeDasharray = "columnDash";
+	columnSeries.tooltip.label.textAlign = "middle";
+
+	let lineSeries = chart.series.push(new am4charts.LineSeries());
+	lineSeries.name = "Expenses";
+	lineSeries.dataFields.valueY = "expenses";
+	lineSeries.dataFields.categoryX = "date";
+
+	lineSeries.stroke = am4core.color("#fdd400");
+	lineSeries.strokeWidth = 3;
+	lineSeries.propertyFields.strokeDasharray = "lineDash";
+	lineSeries.tooltip.label.textAlign = "middle";
+
+	let bullet = lineSeries.bullets.push(new am4charts.Bullet());
+	bullet.fill = am4core.color("#fdd400"); // tooltips grab fill from parent by default
+	bullet.tooltipText = "[#fff font-size: 15px]{categoryX}\n{valueY}명"
+	let circle = bullet.createChild(am4core.Circle);
+	circle.radius = 4;
+	circle.fill = am4core.color("#fff");
+	circle.strokeWidth = 3;
+
+	chart.data = dataArr;
 }

@@ -14,4 +14,5 @@ public class TotalCase {
 	String acc_exam_cnt;
 	String acc_exam_comp_cnt;
 	String acc_def_rate;
+	String inc_dec;
 }

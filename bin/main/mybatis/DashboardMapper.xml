@@ -12,10 +12,13 @@
 			sdc.inc_dec,
 			sdc.def_cnt,
 			vsdcd.inc_dec as inc_dec_distance,
-			vsdcd.def_cnt as def_cnt_distance
+			vsdcd.def_cnt as def_cnt_distance,
+			ci.country_id
 		from si_do_case sdc 
 		join v_si_do_case_distance vsdcd 
 		on sdc.CREATE_DT = vsdcd.create_dt and sdc.gubun = vsdcd.gubun 
+		left join country_id ci
+		on sdc.gubun = ci.country_name
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<choose>
 				<when test="create_dt != null and create_dt != ''">
@@ -38,7 +41,7 @@
 			inc_dec
 		FROM v_gen_age_case
 		where
-			gubun not in ('남성','여성')
+			1=1
 		<choose>
 			<when test="create_dt != null and create_dt != ''">
 				and create_dt = #{create_dt}
@@ -108,5 +111,39 @@
 			</choose>
 		</trim>
 		order by CREATE_DT desc
+	</select>
+	
+	<select id="selectTotalCaseWeekData" parameterType="Map" resultType="TotalCase">
+			select 
+				* 
+			from
+				(select
+					DATE_FORMAT(CREATE_DT,'%y-%m-%d') as create_dt,
+					sum(inc_dec) as inc_dec
+				from
+					si_do_case sdc
+				left join 
+					country_id ci
+				on
+					sdc.gubun = ci.country_name
+				where
+					GUBUN != '합계'
+					<choose>
+						<when test="create_dt != null and create_dt != ''">
+							<![CDATA[and create_dt <= #{create_dt}]]>
+						</when>
+						<otherwise>
+							<![CDATA[and create_dt <= (select max(create_dt) from si_do_case)]]>
+						</otherwise>
+					</choose>
+					<if test="country_id != null and country_id != '' and country_id != 'KR-All'">
+						and ci.country_id = #{country_id}
+					</if>
+				group by
+					CREATE_DT
+				order by
+					CREATE_DT desc
+				limit 0,7) a
+			order by a.create_dt asc
 	</select>
 </mapper>

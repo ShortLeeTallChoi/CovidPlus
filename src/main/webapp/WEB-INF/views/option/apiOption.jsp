@@ -49,7 +49,7 @@
 		                             			상세
 		                             		</div>
 		                             		<div class="col-md-2">
-		                             			<button id="confirmBtn" class="form-control" style="height: 24px; padding: 0px;">추가하기</button>
+		                             			<button id="confirmBtn" class="form-control" onclick="processOption()" style="height: 24px; padding: 0px;">추가하기</button>
 		                             		</div>
 		                             	</div>
 		                             </th>
@@ -69,7 +69,7 @@
 		                             </td>
 		                             <td>
 		                             	수집ID<br>
-		                             	<input class="form-control" type="text" name="parsing_id">
+		                             	<input id="parsing_key" class="form-control" type="text" name="parsing_key">
 		                             </td>
 		                             <td colspan="2">
 		                             	<div class="col-md-12">
@@ -97,22 +97,22 @@
 		                         </tr>
 		                         <tr>
 		                             <td>
-		                             	 Parameter<br>
-		                             	<div id="url_parameter" style="width: 100%;min-height: 38px;border: 1px dashed lightgray;padding: 0px 4px;">
+		                             	 요청변수<br>
+		                             	<div id="url_parameter" style="width: 100%;min-height: 38px;border: 1px dashed lightgray;padding: 6px 4px;">
 		                             	</div>
 		                             </td>
 		                             <td colspan="3">
 		                             	<div class="row">
 			                             	<div class="col-md-5">
 				                             	변수명<br>
-												<input class="form-control" type="text" name="parameter">	
+												<input id="urlParamName" class="form-control" type="text" name="parameter">	
 											</div>
 			                             	<div class="col-md-5">               
 				                             	값<br>
-												<input class="form-control" type="text" name="parameter">	
+												<input id="urlParamValue" class="form-control" type="text" name="parameter">	
 											</div>
 			                             	<div class="col-md-2" style="padding-top: 24px">      
-			                             		<button class="form-control" style="padding-left: 9px"><i class="fas fa-plus"></i></button>         
+			                             		<button class="form-control" onclick="addUrlParam()" style="padding-left: 9px"><i class="fas fa-plus"></i></button>         
 											</div>
 		                             </td>
 		                         </tr>
@@ -136,12 +136,12 @@
 		                             </td>
 		                             <td style="width: 13%">
 		                             	날짜 변수<br>
-										<div id="DateParam" name="DateParam" style="width: 100%;min-height: 38px;border: 1px dashed lightgray;padding: 0px 4px;">
+										<div id="DateParam" name="DateParam" style="width: 100%;min-height: 38px;border: 1px dashed lightgray;padding: 6px 4px;">
 		                             	</div>	                             
 		                             </td>
 		                             <td colspan="2">
 		                             	날짜 변수 추가<br>
-										<select class="form-control" id="parameterList">
+										<select id="parameterList" class="form-control" onchange="addDateParam(this)">
 											<option>----</option>
 										</select>
 		                             </td>
@@ -151,7 +151,10 @@
 		                             	 테이블명<br>
 		                             	<input name="table_name" class="form-control" type="text">
 		                             </td>
-		                             <td colspan="3"></td>
+		                             <td colspan="3">
+		                              	코멘트<br>
+		                             	<input name="comment" class="form-control" type="text">
+		                             </td>
 		                         </tr>
 		                         <tr>
 		                             <td colspan="4">

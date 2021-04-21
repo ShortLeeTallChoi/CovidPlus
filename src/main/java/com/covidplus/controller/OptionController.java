@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.covidplus.service.OptionService;
+import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/option")
@@ -33,6 +34,18 @@ public class OptionController {
 	@PostMapping("/selectParseInfo")
 	public ModelAndView selectParseInfo(@RequestParam Map<String,Object> paramMap) {
 		ModelAndView modelAndView = optionService.selectParseInfo(paramMap);
+		return modelAndView;
+	}
+	
+	@PostMapping("/processOption")
+	public ModelAndView processOption(@RequestParam Map<String,Object> paramMap) {
+		ModelAndView modelAndView = optionService.processOption(paramMap);
+		return modelAndView;
+	}
+	
+	@GetMapping("/parsingLog")
+	public ModelAndView parsingLog(@RequestParam Map<String,Object> paramMap) {
+		ModelAndView modelAndView = optionService.parsingLog(paramMap);
 		return modelAndView;
 	}
 }

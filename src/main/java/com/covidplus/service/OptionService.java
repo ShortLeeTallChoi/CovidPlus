@@ -10,4 +10,8 @@ public interface OptionService {
 
 	ModelAndView selectParseInfo(Map<String, Object> paramMap);
 
+	ModelAndView processOption(Map<String, Object> paramMap);
+
+	ModelAndView parsingLog(Map<String, Object> paramMap);
+
 }

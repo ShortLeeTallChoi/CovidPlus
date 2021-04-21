@@ -35,4 +35,30 @@
 		WHERE
 			parsing_key = #{parsing_key}
 	</select>
+	
+	<select id="replaceParseOption" resultType="ParseOptionVO" parameterType="ParseOptionVO">
+		REPLACE INTO covidplus.parse_option (
+			parsing_key,
+			service_url,
+			service_key,
+			url_parameter,
+			date_parameter,
+			table_name,
+			insert_query,
+			comment,
+			last_to_today,
+			activity)
+		VALUES(
+			#{parsing_key},
+			#{service_url},
+			#{service_key},
+			#{url_parameter},
+			#{date_parameter},
+			#{table_name},
+			#{insert_query},
+			#{comment},
+			#{last_to_today},
+			#{activity}
+		)
+	</select>
 </mapper>

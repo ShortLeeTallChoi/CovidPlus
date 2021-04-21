@@ -25,4 +25,8 @@
    <definition name="apiOption" extends="main-layout">
        <put-attribute name="body" value="/WEB-INF/views/option/apiOption.jsp" />
    </definition>
+      
+   <definition name="parsingLog" extends="main-layout">
+       <put-attribute name="body" value="/WEB-INF/views/option/parsingLog.jsp" />
+   </definition>
 </tiles-definitions>

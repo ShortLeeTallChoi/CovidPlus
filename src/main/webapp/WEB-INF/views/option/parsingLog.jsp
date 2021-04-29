@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Main</title>
+<title>수집 로그 조회</title>
 <style type="text/css">
 	.button-style{
 		font-weight: 400;
@@ -22,7 +22,6 @@
 	}
 </style>
 </head>
-<div id="layoutSidenav_content">
 	<main>
 	<div class="container-fluid">
 		<h1 class="mt-4">수집 로그 조회</h1>

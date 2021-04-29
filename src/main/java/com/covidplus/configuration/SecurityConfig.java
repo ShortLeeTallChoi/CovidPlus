@@ -44,12 +44,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 페이지 권한 설정
              .antMatchers("/admin/**").hasRole("ADMIN")			//admin/ 이 포함된 경로는 ADMIN 권한 유저만 접근 가능
                 .antMatchers("/member/**").hasRole("MEMBER")	//user/myinfo 가 포함된 경로는 MEMBER 권한 유저만 접근 가능
+                .antMatchers("/option/**").authenticated()
                 .anyRequest().permitAll()					//그외 나머지 페이지는 권한과 상관없이 접근 가능
             .and() // 로그인 설정
             .formLogin()
                 .loginPage("/login")							//로그인 페이지 경로
                 .loginProcessingUrl("/login/loginProcess")		//로그인 진행 경로
-                .defaultSuccessUrl("/index")					//로그인 성공시 이동 페이지
+                .defaultSuccessUrl("/")					//로그인 성공시 이동 페이지
             //  .failureForwardUrl("/login")					//로그인 실패시 이동 페이지
                 .failureHandler(failureHandler)		//로그인 실패시 로직
                 .usernameParameter("member_id")					//유저 아이디로 넘겨줄 파라미터
@@ -58,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and() // 로그아웃 설정
             .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))	//로그아웃 진행 경로
-                .logoutSuccessUrl("/user/logout/result")							//로그아웃 성공시 이동 페이지
+                .logoutSuccessUrl("/dashboard")							//로그아웃 성공시 이동 페이지
                 .invalidateHttpSession(true)										//로그아웃된 세션 초기화
             .and()
                 // 403 예외처리 핸들링

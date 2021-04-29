@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService,UserDetailsService {
 		return modelAndView;
 	}
 
-	@Override
+	@Override		//로그인 정보 조회, 이후 로그인 로직은 UserAuthenticationProvider class 확인
 	public UserVO authenticate(String id, String pass) {
 		return loginDao.memberInfoOne(new UserVO(id));
 	}

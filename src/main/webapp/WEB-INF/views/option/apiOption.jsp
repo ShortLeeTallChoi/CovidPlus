@@ -25,7 +25,9 @@
    		flex-wrap: wrap;
 	}
 </style>
-<div id="layoutSidenav_content">
+<head>
+	<title>에이전트 수집 설정</title>
+</head>
 	<main>
 		 <div class="container-fluid">
 		     <h1 class="mt-4">에이전트 수집 설정</h1>

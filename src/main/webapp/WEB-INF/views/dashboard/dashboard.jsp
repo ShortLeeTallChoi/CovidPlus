@@ -33,8 +33,16 @@
 	#sidoBody > tr > td{
 		text-align: center;
 	}
+	
+	tr:nth-child(odd){
+		background-color: #FAFAFA;
+	}
+	
+	tr:last-child{
+		background-color: #E6E6E6;
+	}
 </style>
-<div id="layoutSidenav_content">
+
 	<main>
 	<div class="container-fluid">
 		<h1 class="mt-4">Covid-19 Dashboard</h1>
@@ -122,7 +130,7 @@
 		<div class="col-xl-12">
 			<div class="card mb-4">
 				<div class="card-header">
-					<i class="fas fa-table mr-1"></i> DataTable Example
+					<i class="fas fa-table mr-1"></i> 전국통계
 				</div>
 				<div class="card-body">
 					<div class="table-responsive">

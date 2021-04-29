@@ -22,7 +22,7 @@ public class OptionController {
 	@Autowired
 	public OptionService optionService;
 	
-	@GetMapping("/{optionPath}")
+	//@GetMapping("/{optionPath}")
 	public String testDirectAccess(@PathVariable("optionPath") String optionPath) {
 		return "/option/"+optionPath;
 	}

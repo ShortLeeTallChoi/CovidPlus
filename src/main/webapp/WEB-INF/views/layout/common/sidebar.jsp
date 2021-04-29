@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
         <!-- 사이드 시작 -->
         <div id="layoutSidenav">
@@ -22,8 +23,8 @@
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="${rootPath}/option/api">에이전트 수집 설정</a>
-                                    <a class="nav-link" href="${rootPath}/option/parsingLog">수집 로그 조회</a>
+                                    <div class="nav-link" onclick="authcheckMove('${rootPath}/option/api')" style="cursor: pointer">에이전트 수집 설정</div>
+                                    <div class="nav-link" onclick="authcheckMove('${rootPath}/option/parsingLog')" style="cursor: pointer">수집 로그 조회</div>
                                 </nav>
                             </div>
                            <!--  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -68,9 +69,22 @@
                             </a> -->
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+                    <sec:authorize access="isAuthenticated()">
+	                    <div class="sb-sidenav-footer">
+	                        <div class="small">Logged in as:</div>
+	                       <sec:authentication property="principal.member_id"/>
+	                    </div>
+                    </sec:authorize>
                 </nav>
             </div>
+            <script type="text/javascript">
+            	function authcheckMove(path){
+            		<sec:authorize access="isAuthenticated()">
+            			location.href = path;
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
+            			alert('권한이 필요한 페이지 입니다.');
+                    </sec:authorize>
+            	}
+            </script>
+            <div id="layoutSidenav_content">

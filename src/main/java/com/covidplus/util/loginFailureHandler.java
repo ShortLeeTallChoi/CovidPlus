@@ -34,6 +34,9 @@ public class loginFailureHandler implements AuthenticationFailureHandler {
         UserVO userVO = new UserVO();
         userVO.setMember_id(user_id);
         
+        System.out.println(request.getServletPath());
+        System.out.println(request.getHeader("REFERER"));
+        
         RequestContextUtils.getInputFlashMap(request);
         
         if(loginDao.memberInfoOne(userVO) != null) {

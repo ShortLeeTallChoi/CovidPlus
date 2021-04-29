@@ -1,5 +1,6 @@
 package com.covidplus.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.covidplus.dao.OptionDao;
 import com.covidplus.model.ParseOptionVO;
+import com.covidplus.model.ParsingLogVO;
 import com.covidplus.service.OptionService;
 import com.covidplus.util.Converter;
 import com.google.gson.Gson;
@@ -56,6 +58,14 @@ public class OptionServiceImpl implements OptionService {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("parsingLog");
 		modelAndView.addObject("parseVOList",optionDao.selectParseOptionList(new ParseOptionVO()));
+		
+		int listCnt = optionDao.selectParseLogAllCount(paramMap);
+		ParsingLogVO searchLogVO = Converter.map2voConvert(paramMap, ParsingLogVO.class);
+		searchLogVO.setListCnt(listCnt);
+		List<ParsingLogVO> LogList = optionDao.selectParseLogList(searchLogVO);
+		modelAndView.addObject("LogList",LogList);
+		modelAndView.addObject("searchLogVO",searchLogVO);
+		
 		return modelAndView;
 	}
 

@@ -88,8 +88,8 @@ function createSiDoTable(data){
 		var def_cnt_distance =  data.sidoCase[value].def_cnt_distance;
 		var tdSource = '';
 		tdSource = addtd(tdSource, gubun);
-		tdSource = addtd(tdSource, inc_dec+distance_value(inc_dec_distance));
-		tdSource = addtd(tdSource, def_cnt+distance_value(def_cnt_distance));
+		tdSource = addtd(tdSource, inc_dec.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+distance_value(inc_dec_distance));
+		tdSource = addtd(tdSource, def_cnt.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+distance_value(def_cnt_distance));
 		htmlSource = addtr(htmlSource,tdSource);
 	}
 	$('#sidoBody').html(htmlSource);
@@ -98,11 +98,11 @@ function createSiDoTable(data){
 function distance_value(value){
 	var html = "<span class='small_font'>(<span class='"
 	if(value > 0){
-		html = html+"small_red'>+"+value
+		html = html+"small_red'>+"+value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 	}else if(value < 0){
-		html = html+"small_blue'>"+value
+		html = html+"small_blue'>"+value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 	}else{
-		html = html+"small_black'>"+value
+		html = html+"small_black'>"+value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
 	}
 	html = html+"</span>)</span>";
 	return html;

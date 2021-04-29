@@ -20,3 +20,5 @@ gradlew
 *.lock
 *.prefs
 *.class
+build/
+covidplus.pid

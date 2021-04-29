@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.function.ServerRequest.Headers;
 
 import com.covidplus.service.LoginService;
 import com.covidplus.service.impl.LoginServiceImpl;
@@ -62,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 // 403 예외처리 핸들링
             .exceptionHandling().accessDeniedPage("/user/denied");
+        http.headers(headers -> headers.cacheControl(cache -> cache.disable()));//post 새로고침 양식다시제출 확인 x
     }
     
     @Override

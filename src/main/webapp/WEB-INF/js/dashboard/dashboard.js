@@ -3,10 +3,10 @@ $(document).ready(function(){
 		var value = $(val).text();
 		if(value > 0){
 			$(this).css("color","red");
-			$(this).text('+ '+value);
+			$(this).text('+ '+value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 		}else if(value < 0){
 			$(this).css("color","blue");
-			$(this).text('- '+value);
+			$(this).text('- '+(Math.abs(value)).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
 		}
 	});
 	
@@ -14,7 +14,7 @@ $(document).ready(function(){
 		var country_id = $(this).attr('id').replace('-b','');
 		$.ajax({
 	         type: 'POST',
-	         url: location.pathname+'chartData.do',
+	         url: location.pathname+'/chartData.do',
 	         data:{
 	        	 _csrf:callToken,
 	        	 'country_id':country_id

@@ -1,5 +1,6 @@
 package com.covidplus.controller;
 
+import java.lang.reflect.Parameter;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -43,7 +45,7 @@ public class OptionController {
 		return modelAndView;
 	}
 	
-	@GetMapping("/parsingLog")
+	@RequestMapping(value = "/parsingLog", method = {RequestMethod.GET,RequestMethod.POST})
 	public ModelAndView parsingLog(@RequestParam Map<String,Object> paramMap) {
 		ModelAndView modelAndView = optionService.parsingLog(paramMap);
 		return modelAndView;

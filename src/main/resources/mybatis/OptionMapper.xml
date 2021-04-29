@@ -61,4 +61,28 @@
 			#{activity}
 		)
 	</select>
+	
+	<select id="selectParseLogAllCount" resultType="int" parameterType="Map">
+		select count(*)
+		from parsing_log
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="parsing_key != '' and parsing_key != null and parsing_key != 'all'">
+				AND parsing_key = #{parsing_key}
+			</if>
+		</trim>
+	</select>
+	
+	<select id="selectParseLogList" resultType="ParsingLogVO" parameterType="ParsingLogVO">
+		select 
+			*
+		from parsing_log
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="parsing_key != '' and parsing_key != null and parsing_key != 'all'">
+				AND parsing_key = #{parsing_key}
+			</if>
+		</trim>
+		order by log_no desc
+		limit #{startList}, #{listSize}
+			
+	</select>
 </mapper>

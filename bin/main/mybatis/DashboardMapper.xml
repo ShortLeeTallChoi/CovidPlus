@@ -47,7 +47,7 @@
 				and create_dt = #{create_dt}
 			</when>
 			<otherwise>
-				and create_dt = (select max(create_dt) from si_do_case)
+				and create_dt = (select max(create_dt) from gen_age_case)
 			</otherwise>
 		</choose>
 		order by inc_dec desc

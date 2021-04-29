@@ -28,9 +28,9 @@
 <div id="layoutSidenav_content">
 	<main>
 		 <div class="container-fluid">
-		     <h1 class="mt-4">Agent Option</h1>
+		     <h1 class="mt-4">에이전트 수집 설정</h1>
 		     <ol class="breadcrumb mb-4">
-		         <li class="breadcrumb-item active">수집 에이전트 설정 수정</li>
+		         <li class="breadcrumb-item active">에이전트 수집 설정 추가 및 수정</li>
 		     </ol>
 		     <div class="card mb-4">
 		         <div class="card-header">

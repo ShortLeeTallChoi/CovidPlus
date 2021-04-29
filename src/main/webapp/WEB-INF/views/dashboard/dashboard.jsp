@@ -2,7 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}"/>
+<header>
+	<title>CovidPlus 대시보드</title>
+</header>
 <style>
 	.small_font{
 		font-size:10px;
@@ -38,27 +42,27 @@
 			<div class="col-md-12" style="background-color: white; border-radius: 0.25rem; display: inline-block; padding-bottom: 10px; padding-top: 10px; text-align: center">
 				<div class="row">
 					<div class="col-md-2">
-						<div class="x-large">${totalCase.decide_cnt }</div>
+						<div class="x-large"><fmt:formatNumber value="${totalCase.decide_cnt }" pattern="#,###" /></div>
 						<div>(<span class="distance_value">${totalCase_distance.decide_cnt }</span>)</div>
 					</div>
 					<div class="col-md-2">
-						<div class="x-large">${totalCase.clear_cnt }</div>
+						<div class="x-large"><fmt:formatNumber value="${totalCase.clear_cnt }" pattern="#,###" /></div>
 						<div>(<span class="distance_value">${totalCase_distance.clear_cnt }</span>)</div>
 					</div>
 					<div class="col-md-2">
-						<div class="x-large">${totalCase.death_cnt }</div>
+						<div class="x-large"><fmt:formatNumber value="${totalCase.death_cnt }" pattern="#,###" /></div>
 						<div>(<span class="distance_value">${totalCase_distance.death_cnt }</span>)</div>
 					</div>
 					<div class="col-md-2">
-						<div class="x-large">${totalCase.care_cnt }</div>
+						<div class="x-large"><fmt:formatNumber value="${totalCase.care_cnt }" pattern="#,###" /></div>
 						<div>(<span class="distance_value">${totalCase_distance.care_cnt }</span>)</div>
 					</div>
 					<div class="col-md-2">
-						<div class="x-large">${totalCase.exam_cnt }</div>
+						<div class="x-large"><fmt:formatNumber value="${totalCase.exam_cnt }" pattern="#,###" /></div>
 						<div>(<span class="distance_value">${totalCase_distance.exam_cnt }</span>)</div>
 					</div>
 					<div class="col-md-2">
-						<div class="x-large">${totalCase.acc_exam_cnt }</div>
+						<div class="x-large"><fmt:formatNumber value="${totalCase.acc_exam_cnt }" pattern="#,###" /></div>
 						<div>(<span class="distance_value">${totalCase_distance.acc_exam_cnt }</span>)</div>
 					</div>
 				</div>

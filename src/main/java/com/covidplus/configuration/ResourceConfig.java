@@ -2,8 +2,10 @@ package com.covidplus.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
@@ -48,4 +50,10 @@ public class ResourceConfig implements WebMvcConfigurer{
 		return new MappingJackson2JsonView();
 	}
 	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		WebMvcConfigurer.super.addViewControllers(registry);
+		registry.addViewController("/").setViewName("forward:/dashboard");
+		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	}
 }

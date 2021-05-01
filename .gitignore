@@ -13,8 +13,6 @@
 .settings/org.eclipse.core.resources.prefs
 bin/main/com/covidplus/configuration/ResourceConfig.class
 bin/main/com/covidplus/configuration/TilesConfig.class
-gradle/wrapper/gradle-wrapper.properties
-gradlew
 *.properties
 *.bin
 *.lock

@@ -12,9 +12,16 @@ $(document).ready(function(){
 	
 	$('button').click(function(){
 		var country_id = $(this).attr('id').replace('-b','');
+		var urlPath;
+		console.log(location.pathname.split('/').length);
+		if(location.pathname.split('/').length > 3){
+			urlPath = 'chartData.do'; 
+		}else{
+			urlPath = 'dashboard/chartData.do';
+		}
 		$.ajax({
 	         type: 'POST',
-	         url: location.pathname+'/chartData.do',
+	         url: location.pathname+urlPath,
 	         data:{
 	        	 _csrf:callToken,
 	        	 'country_id':country_id

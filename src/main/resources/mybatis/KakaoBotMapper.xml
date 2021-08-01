@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.covidplus.dao.KakaoBotDao">
+	<select id="selectCoronaSido" parameterType="Map" resultType="Map">
+		select
+			*
+		from si_do_case
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<choose>
+				<when test="locate != null and locate != ''">
+					and GUBUN = #{locate}
+				</when>
+				<when test="locate == null or locate == ''">
+					and GUBUN = '합계'
+				</when>
+			</choose>
+			<choose>
+				<when test="date != null and date != ''">
+					and CREATE_DT = #{date}
+				</when>
+				<when test="date == null or date == ''">
+					and create_dt = (select max(create_dt) from v_total_case_distance)
+				</when>
+			</choose>
+		</trim>
+
+	</select>
+</mapper>

@@ -63,7 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)										//로그아웃된 세션 초기화
             .and()
                 // 403 예외처리 핸들링
-            .exceptionHandling().accessDeniedPage("/user/denied");
+            .exceptionHandling().accessDeniedPage("/user/denied")
+            .and()
+            .csrf().disable();
         http.headers(headers -> headers.cacheControl(cache -> cache.disable()));//post 새로고침 양식다시제출 확인 x
     }
     

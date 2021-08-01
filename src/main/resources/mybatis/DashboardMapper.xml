@@ -146,4 +146,9 @@
 				limit 0,7) a
 			order by a.create_dt asc
 	</select>
+	<insert id="inputProfile" parameterType="Map">
+		INSERT INTO covidplus.kakao_bot_user_option
+		(user_name, option_name, option_value, description)
+		VALUES(#{user_name}, #{option_name}, #{option_value}, #{description});
+	</insert>
 </mapper>

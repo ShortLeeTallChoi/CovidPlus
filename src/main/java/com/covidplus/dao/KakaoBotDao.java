@@ -8,4 +8,8 @@ import java.util.Map;
 @Mapper
 public interface KakaoBotDao {
     public List<Map<String,String>> selectCoronaSido(Map<String,String> paramMap);
+
+    public String selectLocateCode(String paramMap);
+
+    void inputProfile(Map<String, Object> paramMap);
 }

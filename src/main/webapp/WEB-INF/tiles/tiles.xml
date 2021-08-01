@@ -33,4 +33,6 @@
    <definition name="denied" extends="main-layout">
        <put-attribute name="body" value="/WEB-INF/views/alertpage/denied.jsp" />
    </definition>
+
+    <definition name="kakaoresult" template="/WEB-INF/views/kakaoresult.jsp"></definition>
 </tiles-definitions>

@@ -26,4 +26,10 @@
 		</trim>
 
 	</select>
+
+	<select id="selectLocateCode" parameterType="String" resultType="String">
+		select locate_code
+		from kakao_bot_weather_code
+		where locate_name = #{locate_name}
+	</select>
 </mapper>
